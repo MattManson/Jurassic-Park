@@ -19,10 +19,29 @@ public class Paddock {
         this.contents = new ArrayList<>();
     }
 
-    public void addDino(Dinosaur dinosaur) {
-        if (dinosaur.getType().equals(this.dinoType)|| this.contents.get(0).getBreed() == dinosaur.getBreed()){
+    public String addDino(Dinosaur dinosaur) {
+        String result;
+
+        if(this.contents.size() == 0 && this.dinoType.equals(dinosaur.getType())){
             contents.add(dinosaur);
+            return "added " + dinosaur.getName() + "!";
         }
+
+        else if(this.dinoType.equals(dinosaur.getType()) && this.dinoType.equals(DinoType.HERBIVORE)){
+            contents.add(dinosaur);
+            return "added " + dinosaur.getName() + "!";
+        }
+
+        else if (this.contents.get(0).getBreed().equals(dinosaur.getBreed())){
+            contents.add(dinosaur);
+            result = "added " + dinosaur.getName() + "!";
+        }
+        else {
+            result = dinosaur.getName() + " incompatible!";
+        }
+
+        return result;
+
     }
 
     public int getSize() {
