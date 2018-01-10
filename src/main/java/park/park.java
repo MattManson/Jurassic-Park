@@ -1,4 +1,4 @@
 package park;
 
-public class park {
+public class Park {
 }

@@ -1,20 +1,26 @@
 import org.junit.Before;
 import org.junit.Test;
 import park.*;
+import park.dinosaurs.DinoType;
+import park.dinosaurs.Trex;
+import park.dinosaurs.Triceratops;
+import park.dinosaurs.Velociraptor;
 
 import static org.junit.Assert.assertEquals;
 
-public class CarnivoreTest {
+public class DinoTest {
 
     Trex trex;
     Velociraptor velociraptor;
+    Triceratops triceratops;
     LiveCow liveCow;
     Foliage foliage;
 
     @Before
     public void before(){
-        trex = new Trex("Tyrannosaurus Rex", DinoType.CARNIVORE, true);
-        velociraptor = new Velociraptor("Velociraptor", DinoType.CARNIVORE, true);
+        trex = new Trex("Bob", DinoType.CARNIVORE, "Tyrannosaurus Rex");
+        velociraptor = new Velociraptor("Jim", DinoType.CARNIVORE,"Velociraptor");
+        triceratops = new Triceratops("Sally", DinoType.HERBIVORE, "Triceratops");
         liveCow = new LiveCow("betty", true);
         foliage = new Foliage("plant", false);
     }
@@ -26,9 +32,10 @@ public class CarnivoreTest {
     }
 
     @Test
-    public void getName(){
-        assertEquals("Tyrannosaurus Rex", trex.getName());
-        assertEquals("Velociraptor", velociraptor.getName());
+    public void getBreed(){
+        assertEquals("Tyrannosaurus Rex", trex.getBreed());
+        assertEquals("Velociraptor", velociraptor.getBreed());
+        assertEquals("Triceratops", triceratops.getBreed());
     }
 
     @Test
@@ -53,17 +60,22 @@ public class CarnivoreTest {
         trex.eat(liveCow);
         assertEquals(1, trex.stomachSize());
         assertEquals("CHOMP!", trex.eat(liveCow));
+        triceratops.eat(liveCow);
+        assertEquals(0, triceratops.stomachSize());
+        assertEquals("no thanks!", triceratops.eat(liveCow));
     }
 
     @Test
-    public void cantEatVeg(){
+    public void canEatVeg(){
         trex.eat(foliage);
-        velociraptor.eat(foliage);
         assertEquals(0, trex.stomachSize());
         assertEquals("no thanks!", trex.eat(foliage));
+        velociraptor.eat(foliage);
         assertEquals(0, velociraptor.stomachSize());
         assertEquals("no thanks!", velociraptor.eat(foliage));
-
+        triceratops.eat(foliage);
+        assertEquals(1, triceratops.stomachSize());
+        assertEquals("CHOMP!", triceratops.eat(foliage));
     }
 
 

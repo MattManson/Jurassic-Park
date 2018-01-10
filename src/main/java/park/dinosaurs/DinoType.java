@@ -1,4 +1,4 @@
-package park;
+package park.dinosaurs;
 
 public enum DinoType {
     CARNIVORE,
