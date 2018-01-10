@@ -2,6 +2,7 @@ package park;
 
 import park.dinosaurs.DinoType;
 import park.dinosaurs.Dinosaur;
+import park.dinosaurs.Stegosaurus;
 import park.dinosaurs.Triceratops;
 
 import java.awt.*;
@@ -19,28 +20,33 @@ public class Paddock {
         this.contents = new ArrayList<>();
     }
 
-    public String addDino(Dinosaur dinosaur) {
-        String result;
+    public boolean isEmpty(){
+        return this.contents.size() == 0;
+    }
 
-        if(this.contents.size() == 0 && this.dinoType.equals(dinosaur.getType())){
+    public String getBreed(){
+        return this.contents.get(0).getBreed();
+    }
+
+    public boolean addDino(Dinosaur dinosaur) {
+
+        if(isEmpty() && this.dinoType.equals(dinosaur.getType())){
             contents.add(dinosaur);
-            return "added " + dinosaur.getName() + "!";
+            return true;
         }
 
         else if(this.dinoType.equals(dinosaur.getType()) && this.dinoType.equals(DinoType.HERBIVORE)){
             contents.add(dinosaur);
-            return "added " + dinosaur.getName() + "!";
+            return true;
         }
 
-        else if (this.contents.get(0).getBreed().equals(dinosaur.getBreed())){
+        else if (getBreed().equals(dinosaur.getBreed())){
             contents.add(dinosaur);
-            result = "added " + dinosaur.getName() + "!";
+            return true;
         }
         else {
-            result = dinosaur.getName() + " incompatible!";
+            return false;
         }
-
-        return result;
 
     }
 
@@ -50,6 +56,23 @@ public class Paddock {
 
     public DinoType getDinoType() {
         return dinoType;
+    }
+
+    public Dinosaur removeDino(Dinosaur dinosaur) {
+        this.contents.remove(dinosaur);
+        return dinosaur;
+    }
+
+    public boolean moveDino(Dinosaur dinosaur, Paddock newPaddock) {
+        if (!dinoPresent(dinosaur)){
+            return false;
+        }
+        removeDino(dinosaur);
+        return newPaddock.addDino(dinosaur);
+    }
+
+    public boolean dinoPresent(Dinosaur dinosaur){
+        return contents.contains(dinosaur);
     }
 
 }

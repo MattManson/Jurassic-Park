@@ -57,14 +57,14 @@ public class ParkTest {
     public void canAddHerbivores(){
         paddock1.addDino(triceratops);
         assertEquals(1, paddock1.getSize());
-        assertEquals("added Sally!",paddock1.addDino(triceratops));
+        assertEquals(true,paddock1.addDino(triceratops));
     }
 
     @Test
     public void canNotAddCarnivores(){
         paddock3.addDino(trex);
         assertEquals(2, paddock2.getSize());
-        assertEquals("Bob incompatible!",paddock3.addDino(trex));
+        assertEquals(false,paddock3.addDino(trex));
     }
 
     @Test
@@ -76,14 +76,40 @@ public class ParkTest {
     public void canAddCarnivore(){
         paddock2.addDino(velociraptor);
         assertEquals(3, paddock2.getSize());
-        assertEquals("added Jim!", paddock2.addDino(velociraptor));
+        assertEquals(true, paddock2.addDino(velociraptor));
     }
 
     @Test
     public void cantAddDifferentCarnivores(){
         paddock2.addDino(trex);
         assertEquals(2, paddock2.getSize());
-        assertEquals("Bob incompatible!", paddock2.addDino(trex));
+        assertEquals(false, paddock2.addDino(trex));
+    }
+
+    @Test
+    public void cantAddCarnivoresToHerbivore(){
+        paddock3.addDino(trex);
+        assertEquals(2, paddock3.getSize());
+        assertEquals(false, paddock3.addDino(trex));
+    }
+
+    @Test
+    public void cantAddHerbivoreToCarnivores(){
+        paddock2.addDino(stegosaurus1);
+        assertEquals(2, paddock2.getSize());
+        assertEquals(false, paddock2.addDino(stegosaurus1));
+    }
+
+    @Test
+    public void canRemoveDino(){
+        paddock3.removeDino(stegosaurus1);
+        assertEquals(1, paddock3.getSize());
+    }
+
+    @Test
+    public void canMoveDino() {
+        paddock3.moveDino(stegosaurus1, paddock1);
+        assertEquals(1, paddock1.getSize());
     }
 
 }
