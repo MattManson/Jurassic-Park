@@ -1,7 +1,5 @@
 package park.dinosaurs;
 
-import java.util.ArrayList;
-
 public class Trex extends Dinosaur {
 
     public Trex(String name, DinoType type, String breed) {
