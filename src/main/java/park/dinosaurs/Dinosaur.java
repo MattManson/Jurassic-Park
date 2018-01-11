@@ -1,7 +1,7 @@
 package park.dinosaurs;
 
+import park.Visitors.Guest;
 import park.animals.behaviours.IFood;
-import park.*;
 
 import java.util.ArrayList;
 
@@ -34,9 +34,9 @@ public abstract class Dinosaur{
         this.name = name;
     }
 
-    public String eat(Food food) {
+    public String eat(IFood food) {
         String result = null;
-        if(this.type.equals(DinoType.CARNIVORE) && food.meat == true || this.type.equals(DinoType.HERBIVORE) && food.meat == false){
+        if(this.type.equals(DinoType.CARNIVORE) && food.isMeat() || this.type.equals(DinoType.HERBIVORE) && !food.isMeat()){
             stomach.add(food);
             result = "CHOMP!";
         }else result = "no thanks!";
@@ -45,5 +45,9 @@ public abstract class Dinosaur{
 
     public int stomachSize() {
         return this.stomach.size();
+    }
+
+    public void enrage(Guest guest){
+        eat(guest);
     }
 }

@@ -25,6 +25,7 @@ public class Paddock {
     }
 
     public String getBreed(){
+        if(isEmpty()) return null;
         return this.contents.get(0).getBreed();
     }
 
@@ -40,7 +41,7 @@ public class Paddock {
             return true;
         }
 
-        else if (getBreed().equals(dinosaur.getBreed())){
+        else if (getBreed() != null && getBreed().equals(dinosaur.getBreed())){
             contents.add(dinosaur);
             return true;
         }
@@ -67,8 +68,11 @@ public class Paddock {
         if (!dinoPresent(dinosaur)){
             return false;
         }
-        removeDino(dinosaur);
-        return newPaddock.addDino(dinosaur);
+        if (newPaddock.addDino(dinosaur)) {
+            removeDino(dinosaur);
+            return true;
+        }
+        else return false;
     }
 
     public boolean dinoPresent(Dinosaur dinosaur){

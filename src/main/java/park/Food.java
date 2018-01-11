@@ -15,4 +15,8 @@ public abstract class Food implements IFood {
     public String getEaten() {
         return null;
     }
+
+    public boolean isMeat(){
+        return this.meat;
+    }
 }
