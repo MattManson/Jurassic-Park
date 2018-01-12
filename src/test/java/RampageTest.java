@@ -11,12 +11,13 @@ import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-public class ParkTest {
+public class RampageTest {
+
     //    PARK
     Park park;
 
     //    PADDOCKS
-    Paddock testPaddock;
+
     Paddock herbivorePaddock1;
     Paddock herbivorePaddock2;
     Paddock herbivoreHolding;
@@ -25,7 +26,6 @@ public class ParkTest {
     Paddock carnivoreHolding;
 
     //    HERBIVORES
-    Diplodocus testHerbivore;
     Triceratops triceratops1;
     Triceratops triceratops2;
     Brachiosaurus brachiosaurus1;
@@ -34,7 +34,6 @@ public class ParkTest {
     Stegosaurus stegosaurus2;
 
     //    CARNIOVRES
-    Allosaurus testCarnivore;
     Trex trex;
     Velociraptor raptor1;
     Velociraptor raptor2;
@@ -46,11 +45,10 @@ public class ParkTest {
     AnnoyingKid boring;
 
     @Before
-    public void before(){
+    public void before() {
 
         park = new Park("Jurassic Park");
 
-        testPaddock = new Paddock("test paddock", DinoType.HERBIVORE);
         herbivoreHolding = new Paddock("Herbivore Holding", DinoType.HERBIVORE);
         herbivorePaddock1 = new Paddock("Herb 1", DinoType.HERBIVORE);
         herbivorePaddock2 = new Paddock("Herb 2", DinoType.HERBIVORE);
@@ -58,7 +56,7 @@ public class ParkTest {
         tRexPaddock = new Paddock("T-Rex Paddock", DinoType.CARNIVORE);
         carnivoreHolding = new Paddock("Carnivore Holding", DinoType.CARNIVORE);
 
-        testHerbivore = new Diplodocus("test herbivore", DinoType.HERBIVORE, "Diplodocus");
+
         triceratops1 = new Triceratops("Sally", DinoType.HERBIVORE, "Triceratops");
         triceratops2 = new Triceratops("Sarah", DinoType.HERBIVORE, "Triceratops");
         brachiosaurus1 = new Brachiosaurus("Humphrey", DinoType.HERBIVORE, "Brachiosaurus");
@@ -66,7 +64,6 @@ public class ParkTest {
         stegosaurus1 = new Stegosaurus("Mack", DinoType.HERBIVORE, "Stegosaurus");
         stegosaurus2 = new Stegosaurus("Marlon", DinoType.HERBIVORE, "Stegosaurus");
 
-        testCarnivore = new Allosaurus("test carnivore", DinoType.CARNIVORE, "Allosaurus");
         trex = new Trex("Bob", DinoType.CARNIVORE, "Tyrannosaurus Rex");
         raptor1 = new Velociraptor("Jim", DinoType.CARNIVORE,"Velociraptor");
         raptor2 = new Velociraptor("Jack", DinoType.CARNIVORE, "Velociraptor");
@@ -80,10 +77,8 @@ public class ParkTest {
         park.addVisitor(ianMalcolm);
         park.addVisitor(allanGrant);
 
-        park.addPaddock(herbivoreHolding);
         park.addPaddock(herbivorePaddock1);
         park.addPaddock(herbivorePaddock2);
-        park.addPaddock(carnivoreHolding);
         park.addPaddock(raptorPaddock);
         park.addPaddock(tRexPaddock);
 
@@ -102,61 +97,16 @@ public class ParkTest {
     }
 
     @Test
-    public void canAddPaddock(){
-        park.addPaddock(testPaddock);
-        assertEquals(7, park.getNumPaddocks());
+    public void canRandomDino(){
+        assertThat(park.removeRandomDino(), instanceOf(Dinosaur.class));
+        System.out.println(park.removeRandomDino());
     }
 
     @Test
-    public void canAddDino(){
-        park.addDino(testHerbivore, testPaddock);
-        assertEquals(1, testPaddock.getSize());
+    public void canRampageArrayFull(){
+        park.randomRampage();
+        assertEquals(1, park.countRampagingDino());
     }
-
-    @Test
-    public void canNotAddDino(){
-        park.addDino(testCarnivore, testPaddock);
-        assertEquals(0, testPaddock.getSize());
-    }
-
-    @Test
-    public void canCheckInGuest(){
-        park.checkIn(boring);
-        assertEquals(3, park.getNumVisitors());
-    }
-
-    @Test
-    public void canGetAllDinos(){
-        assertEquals(10, park.getNumAllDinosaurs());
-    }
-
-    @Test
-    public void canGetAllDinos2(){
-        park.addDino(testHerbivore, herbivorePaddock1);
-        assertEquals(11, park.getNumAllDinosaurs());
-    }
-
-    @Test
-    public void canMoveCarnivore(){
-        tRexPaddock.moveDino(trex, carnivoreHolding);
-        assertEquals(1, carnivoreHolding.getSize());
-        assertEquals(0, tRexPaddock.getSize());
-    }
-
-    @Test
-    public void canMoveCarnivore2(){
-        assertEquals(true,tRexPaddock.moveDino(trex, carnivoreHolding));
-    }
-
-    @Test
-    public void canMoveHerbivore(){
-        herbivorePaddock1.moveDino(triceratops1, herbivoreHolding);
-        assertEquals(1, herbivoreHolding.getSize());
-        assertEquals(3, herbivorePaddock1.getSize());
-    }
-
-
-
-
 
 }
+
